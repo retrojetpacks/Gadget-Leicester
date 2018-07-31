@@ -939,7 +939,9 @@ extern struct global_data_all_processes
 #endif
 
 #if defined(EVAPORATION_RADIAL)
-  double Cool_ind; /* RJH: Index for irradiation temp floor */
+  double Cool_ind; /* RJH: Index for irradiation temp floor */  
+  double rho_cool_ind; /* RJH: Index for density cooling switch */
+
 #endif
 
 #if defined(BACKGROUND_ILLUMINATION_TEMP) || defined(BETA_COOLING) || defined(ISOTHERM) || defined(EVAPORATION) || defined(EVAPORATION_RADIAL)

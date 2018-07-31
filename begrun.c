@@ -1556,6 +1556,12 @@ void read_parameter_file(char *fname)
       id[nt++] = REAL;
 #endif 
 
+#if defined(EVAPORATION_RADIAL)
+      strcpy(tag[nt], "rho_cool_ind");  
+      addr[nt] = &All.rho_cool_ind;
+      id[nt++] = REAL;
+#endif 
+
 #if defined(BACKGROUND_ILLUMINATION_TEMP) || defined(BETA_COOLING) || defined(ISOTHERM) || defined(EVAPORATION) || defined(EVAPORATION_RADIAL)
       strcpy(tag[nt], "EquilibriumTemp");  // Equilibrium temperature 
       addr[nt] = &All.EqTemp;

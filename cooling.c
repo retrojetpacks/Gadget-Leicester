@@ -186,7 +186,7 @@ double DoCooling(double u_old, double rho, double dt, double *ne_guess, double r
     //Like Beta cooling with floor, except turns off abover rho crit     
     double unew, u_eq = All.EqTemp/u_to_temp_fac/ (pow(sqrt(r2),All.Cool_ind)+1e-10);
     double tcool = All.BetaCool;
-    tcool *= (1. + pow(rho*All.UnitDensity_in_cgs/All.Evap_dens, 5));
+    tcool *= (1. + pow(rho*All.UnitDensity_in_cgs/All.Evap_dens, All.rho_cool_ind));
     unew = (u_old + u_eq *dt/tcool)/(1. + dt/tcool);
     return unew;
 #endif
