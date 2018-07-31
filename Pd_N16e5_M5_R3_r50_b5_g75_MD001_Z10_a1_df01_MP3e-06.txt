@@ -1,0 +1,212 @@
+%The input parameter file for Gadget
+
+InitCondFile	 INIT_COND/Pd_N16e5_M5_R3_r50_b5_g75_MD001_Z10_df01_MP3e-06
+OutputDir        Pd_N16e5_M5_R3_r50_b5_g75_MD001_Z10_a1_df01_MP3e-06
+                 
+EnergyFile        energy.txt
+InfoFile          info.txt
+TimingsFile       timings.txt
+CpuFile           cpu.txt
+
+RestartFile       restart
+SnapshotFileBase  snapshot
+
+OutputListFilename    Output/output_list.txt
+
+% CPU-time limit
+
+TimeLimitCPU      26440000       
+ResubmitOn        0
+ResubmitCommand   xyz
+
+
+% Code options
+
+ICFormat                 3
+ComovingIntegrationOn    0
+CoolingOn                1
+TypeOfTimestepCriterion  0
+OutputListOn             0
+PeriodicBoundariesOn     0
+StarformationOn		 1
+
+
+%  Caracteristics of run
+
+TimeBegin	      0.
+TimeMax	              100.
+
+Omega0	              0
+OmegaLambda           0
+OmegaBaryon           0
+HubbleParam         1.0
+BoxSize               1.
+
+
+% Output frequency
+
+TimeBetSnapshot        0.2
+TimeOfFirstSnapshot    0
+
+CpuTimeBetRestartFile     360000.0    ; here in seconds
+TimeBetStatistics         1.e5
+
+
+% Accuracy of time integration
+
+ErrTolIntAccuracy      0.003      % used for TypeOfTimestepCritrion==0
+CourantFac             0.3      % for SPH
+MaxSizeTimestep        2.5e-2
+MinSizeTimestep        0.0
+
+
+% Tree algorithm, force accuracy, domain update frequency
+
+ErrTolTheta            0.3            
+TypeOfOpeningCriterion 1
+ErrTolForceAcc         0.003
+
+
+%  Further parameters of SPH
+
+DesNumNgb              40
+ArtBulkViscConst       1.
+InitGasTemp            0.          % always ignored if set to 0 
+MinGasTemp             1.    
+MeanWeight             2.45 %2.45661e0      %mean molecular weight
+
+% Memory allocation
+
+PartAllocFactor        10.
+%TreeAllocFactor       1.5
+
+
+% System of units
+
+UnitLength_in_cm           1.496e15
+UnitMass_in_g              1.989e33 
+UnitVelocity_in_cm_per_s   297837.66
+
+GravityConstantInternal  0
+
+% Softening lengths
+
+MinGasHsmlFractional     1. % minimum softening in terms of the gravitational 
+                              % softening length
+
+SofteningGas       1.e-5
+SofteningHalo      0.01
+SofteningDisk      5.e-5
+SofteningBulge     1.e-7 %used as photon/virtual particles
+SofteningStars     0.01
+SofteningBndry     5e-5
+
+SofteningGasMaxPhys       1.e-5
+SofteningHaloMaxPhys      0.01
+SofteningDiskMaxPhys      5.e-5
+SofteningBulgeMaxPhys     2.e-4 %sets maximum search radius for photons
+SofteningStarsMaxPhys     0.01
+SofteningBndryMaxPhys     5.e-5
+
+
+% New Parameters
+SnapFormat                   3
+TreeDomainUpdateFrequency    0.1
+MaxRMSDisplacementFac        0.5
+MaxNumNgbDeviation           0.5
+NumFilesPerSnapshot          1
+NumFilesWrittenInParallel    1
+%BufferSize                  100
+BufferSize                   200
+
+
+%BH parameters
+TimeBetBlackHoleSearch		0.1	% not used
+BlackHoleAccretionFactor	10000.	% Mdot / Mdot_Bondi
+BlackHoleFeedbackFactor		0.	% SN: erg/g for material accreted on planet
+SeedBlackHoleMass		0.	% mass of the initial black holes
+BlackHoleNgbFactor		4.	% change number of ngbs for
+					% the bhs
+BlackHoleActiveTime		0	% used for kin bh feedback
+BlackHoleEddingtonFactor	1.e0    % AH - was 1.e5
+MinFoFMassForNewSeed		1.
+
+%BH_LuminosityFactor 		1.	%SN -- used for SMBH_IRRADIATION option, times L_solar
+
+% Feedback problem parameters -- CBP additions
+AccDtBlackHole                  0.007 % Fraction of orbital time at r_accrete
+ViscousTimescale                3.15e9 % Viscous time in seconds
+AccDiscSFR                      0.0 % Star formation rate in accretion disc
+				    % in solar masses per year
+%BlackHoleMass                   2.e-3 % reset SMBH Mass. if 0 then left unchanged
+%BlackHoleKickVel                 0.  % SMBH kick vel in code units
+%BlackHoleKickAngle		 0. % angle from z-axis
+%PhotonSearchRadius              0.3 % Search radius that varies with distance
+
+%Cooling rate options
+BetaCool                         5.0 %dimensionless cooling time 
+EquilibriumTemp                  20. %used in cooling.c as background illumination T
+Evap_dens			 2.e-11 %gas density threshold for evaporative heating
+Cool_ind                        0.5
+%Poly_K                         45535227727351128.0 //M=5MJ R=5AU
+
+%used for virtual particles
+VirtualStart                    0. %starting time of photon generation
+FeedBackVelocity	   	1.e0    %velocity with which feedback
+				        %particles move
+VirtualMomentum		        1.e-20 %momentum of virtual particles
+VirtualMass			1.e-20  %tracks particle momentum
+VirtualTime			2.      %Removes virtual particles older than this
+VirtualCrosSection	        1.e0    %cross section in Sigma_Thomp
+VirtualFeedBack			0.0     %0.025   %fraction of Eddington limited%momentum outflow
+FreeTravelLength		5.e0   %divider between classic MC and
+%accelerated diffusion. 5 is reasonable; infty will invoke classic MC always
+FractionOfPhotons	        1. 
+
+
+SMBHmass		        0.5 %Mass above which InnerBoundary is used, otherwise SinkBoundary
+
+InnerBoundary		 	2.e-2   %dimensionless radius within which gas or dust is
+				        %accreted by SMBH sink particle
+SinkBoundary			1.e-4	%dimensionless radius within which gas or dust is
+ 					%accreted by other sink particles
+OuterBoundary			1.4e10     %SN: Surface radius of the planet for feedback, in cm
+
+
+%ProtoStarID			10000000 % shift in ID when becomes protostar
+%MinStarMass                     0.1    % threshold proto -> star (in Msun)
+
+
+%SF parameters
+CritOverDensity      		1.e-20 %density threshold value for accretion on small sinks
+CritPhysDensity     		1.e0  %critical density for formation of sink in g/cm^3
+
+
+FactorSN	                0.1
+FactorEVP                       0.1
+TempSupernova                   1.e8
+TempClouds                      1.e2
+MaxSfrTimescale                 1.e2
+WindEfficiency                  0.
+WindEnergyFraction              0.
+WindFreeTravelLength            1.
+WindFreeTravelDensFac           0.1
+
+%parameters of external potentials; except for NFW
+%CuspMass			1.e1  %in code units
+%CuspRadius			10.      %in code units, outer radius
+%CuspGamma			2.0    % M_enc for R < R_cusp
+%FlatRadius			0.01    % Flattening radius, in code units 
+
+%% NFW external potential parameters
+%VirialMass			200.00  % Virial Mass, in code units
+%NFWConcentration		10.00   % Concentration,dimensionless
+%DeltaVir			200.00	% Overdensity param,dimensionless
+
+
+InitialDustRadius		1.e0 % dust grain radius, in cm
+InitialDustMass		1.e0 %dust particle mass, relative to the one in the initial condition file
+aDustMin0                      1.e0
+aDustMax0                      1.e0
+%FragmentationVelocity          1.e0
+%CritDustDensity		       1.e-10
